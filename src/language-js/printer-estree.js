@@ -115,6 +115,7 @@ const {
   utils: { willBreak, isLineNext, isEmpty, removeLines },
   printer: { printDocToString }
 } = require("../doc");
+const {shouldAddBlankLine} = require("./should-add-blank-line");
 
 let uid = 0;
 
@@ -3705,7 +3706,7 @@ function printStatementSequence(path, options, print) {
       }
     }
 
-    if (isNextLineEmpty(text, stmt, options) && !isLastStatement(stmtPath)) {
+    if ((isNextLineEmpty(text, stmt, options) || shouldAddBlankLine(stmtPath)) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 
